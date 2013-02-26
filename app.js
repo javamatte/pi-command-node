@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , error = require('./routes/error')
+  , status = require('./routes/status')
   , api = require('./routes/api')
   , http = require('http')
   , expressLayouts = require('express-ejs-layouts')
@@ -37,9 +38,9 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/docs', error.notImplemented);
 app.get('/examples', error.notImplemented);
-app.get('/status', error.notImplemented);
+app.get('/status', status.index);
 app.get('/api/pin/:pin/read', api.readPin);
-app.get('/api/pin/:pin/write', api.writePin);
+app.get('/api/pin/:pin/write/:value', api.writePin);
 
 
 http.createServer(app).listen(app.get('port'), function(){

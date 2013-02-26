@@ -1,0 +1,69 @@
+<div class='page-header'>
+  <table class='table table-bordered table-striped'>
+    <thead>
+      <tr>
+        <th>Pin</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class='pin-row'>
+        <td>7</td>
+        <td>
+          <div class='btn-group'>
+            <a class="btn btn-warning pinHigh" href="#">On</a>
+            <a class="btn btn-danger pinLow" href="#">Off</a>
+          </div>
+          <a class="btn btn-primary pinRead" href="#">Read</a>
+        </td>
+      </tr>
+      <tr class='pin-row'>
+        <td>9</td>
+        <td>
+          <div class='btn-group'>
+            <a class="btn btn-warning pinHigh" href="#">On</a>
+            <a class="btn btn-danger pinLow" href="#">Off</a>
+          </div>
+          <a class="btn btn-primary pinRead" href="#">Read</a>
+        </td>
+      </tr>
+      <tr class='pin-row'>
+        <td>11</td>
+        <td>
+          <div class='btn-group'>
+            <a class="btn btn-warning pinHigh" href="#">On</a>
+            <a class="btn btn-danger pinLow" href="#">Off</a>
+          </div>
+          <a class="btn btn-primary pinRead" href="#">Read</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script>
+var getPin = function(el) {
+  return parseInt($(el).parents('.pin-row').children('td').first().text())
+}
+
+var readJson = function(data) {
+  var response = 'Result: ' + data.result + '\nOperation: ' + data.operation + '\nPin: ' + data.pin + '\nValue: ' + data.value;
+  if (data.error) {
+    response += '\nError: ' + data.error;
+  }  
+  alert(response);
+}
+$(document).ready(function(){
+  $('a.pinHigh').click(function() {
+    var pin = getPin(this);
+    $.get('/api/pin/' + pin + '/write/1',readJson);
+  });
+  $('a.pinLow').click(function() {
+    var pin = getPin(this);
+    $.get('/api/pin/' + pin + '/write/0',readJson);
+  });
+  $('a.pinRead').click(function() {
+    var pin = getPin(this);
+    $.get('/api/pin/' + pin + '/read',readJson);
+  });
+});
+</script>
