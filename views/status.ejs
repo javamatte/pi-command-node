@@ -17,28 +17,15 @@
           <a class="btn btn-primary pinRead" href="#">Read</a>
         </td>
       </tr>
-      <tr class='pin-row'>
-        <td>9</td>
-        <td>
-          <div class='btn-group'>
-            <a class="btn btn-warning pinHigh" href="#">On</a>
-            <a class="btn btn-danger pinLow" href="#">Off</a>
-          </div>
-          <a class="btn btn-primary pinRead" href="#">Read</a>
-        </td>
-      </tr>
-      <tr class='pin-row'>
-        <td>11</td>
-        <td>
-          <div class='btn-group'>
-            <a class="btn btn-warning pinHigh" href="#">On</a>
-            <a class="btn btn-danger pinLow" href="#">Off</a>
-          </div>
-          <a class="btn btn-primary pinRead" href="#">Read</a>
-        </td>
-      </tr>
     </tbody>
   </table>
+  <form>
+    <fieldset>
+      <legend>API Response</legend>
+      <label>Output:</label>
+      <textarea rows='8' class='output-console input input-xxlarge'></textarea>
+    </fieldset>
+  </form>
 </div>
 <script>
 var getPin = function(el) {
@@ -50,7 +37,7 @@ var readJson = function(data) {
   if (data.error) {
     response += '\nError: ' + data.error;
   }  
-  alert(response);
+  $('.output-console').val($('.output-console').val() + response + '\n\n');
 }
 $(document).ready(function(){
   $('a.pinHigh').click(function() {
