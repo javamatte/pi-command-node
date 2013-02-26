@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , error = require('./routes/error')
+  , api = require('./routes/api')
   , http = require('http')
   , expressLayouts = require('express-ejs-layouts')
   , path = require('path');
@@ -37,6 +38,9 @@ app.get('/', routes.index);
 app.get('/docs', error.notImplemented);
 app.get('/examples', error.notImplemented);
 app.get('/status', error.notImplemented);
+app.get('/api/pin/:pin/read', api.readPin);
+app.get('/api/pin/:pin/write', api.writePin);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
