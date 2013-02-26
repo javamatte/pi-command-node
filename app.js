@@ -5,7 +5,7 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
+  , error = require('./routes/error')
   , http = require('http')
   , expressLayouts = require('express-ejs-layouts')
   , path = require('path');
@@ -20,7 +20,7 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.cookieParser('your secret here'));
+  app.use(express.cookieParser('deadbeef1'));
   app.use(express.session());
   app.use(expressLayouts);
   app.use(app.router);
@@ -32,8 +32,11 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+// routes (initially defined above)
 app.get('/', routes.index);
-app.get('/users', user.list);
+app.get('/docs', error.notImplemented);
+app.get('/examples', error.notImplemented);
+app.get('/status', error.notImplemented);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
